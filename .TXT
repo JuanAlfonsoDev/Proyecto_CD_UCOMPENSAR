@@ -1,1 +1,10 @@
-HOLA 
+La librería Streamlit:  sirve para convertir scripts de Python en aplicaciones web 
+                        interactivas de forma rápida, 
+                        sin necesidad de saber HTML, CSS o JavaScript.
+La libreria Numpy: NumPy (abreviatura de Numerical Python) es una biblioteca de código abierto para Python 
+                    que sirve para realizar cálculos numéricos y científicos a gran escala
+
+La libreri ploty: La librería Plotly sirve para crear gráficos interactivos y paneles de control (dashboards) 
+                    de alta calidad en lenguajes como Python, R y JavaScript
+
+
