@@ -129,7 +129,7 @@ with web.expander("Pregunta 2. Máximos, tasas de variación y continuidad"): # 
     web.markdown("**A. El día que se alcanza el mayor ingreso diario en la primera fase**")
     web.write(
         "La organización alcanza su máximo ingreso diario "
-        "en el día ***20***, con un valor de ***1.300*** miles de pesos, "
+        "en el día **20**, con un valor de **1.300** miles de pesos, "
         "equivalentes a **$1.300.000**."
     )
 
@@ -139,7 +139,7 @@ with web.expander("Pregunta 2. Máximos, tasas de variación y continuidad"): # 
     web.markdown("**B. Ritmo de crecimiento del dia 10**")
     web.write(
         "En el día 10, los ingresos diarios están aumentando "
-        "a una tasa de ***40*** mil pesos por cada día adicional "
+        "a una tasa de **40** mil pesos por cada día adicional "
         "de campaña."
     )
 
@@ -158,9 +158,9 @@ with web.expander("Pregunta 2. Máximos, tasas de variación y continuidad"): # 
     web.markdown("**D. Cambio de ritmo**")
     web.write(
         """Si se registra un cambio de ritmo, en la primera 
-        pase se puede ver que tiene un ritmo de ***-25***, y en la segunda 
-        fase se puede ver un ritmo de ***-15***. Con el ajuste hecho en la función
-        sigue dando el mismo resultado de ***-15***
+        pase se puede ver que tiene un ritmo de **-25**, y en la segunda 
+        fase se puede ver un ritmo de **-15**. Con el ajuste hecho en la función
+        sigue dando el mismo resultado de **-15**
         
         
         """
@@ -365,7 +365,7 @@ with web.expander("Pregunta 3. Ingresos acumulados y punto de inflexión"):
     web.markdown("**A. Punto de inflexión:**")
 
     web.write(""" 
-        El punto de inflexión es en el dia ***20***, por tal razon los días anteriores
+        El punto de inflexión es en el dia **20**, por tal razon los días anteriores
         se tenia un aumento considerablemente rapido. Después de pasado el dia 20 
         los ingresos diarios comienzan a disminuir, pero siguen sumando el ingreso acomulado,
         por tal razon los ingresos siguen subiendo.
@@ -373,7 +373,7 @@ with web.expander("Pregunta 3. Ingresos acumulados y punto de inflexión"):
 
     web.write(""" 
             Adicionalmente el valor que se optiene en el dia 20 corresponde a
-            ***$20.666.667 de pesos***. 
+            **$20.666.667 de pesos**. 
         """)
 
 
@@ -489,19 +489,33 @@ with web.expander("Pregunta 4. Producción, costos y beneficios"):
     web.markdown("**A. Acercamiento a 0 unidades**")
     
     web.write(
-        """Cuando la producción se aproxima a cero, se mantiene un costo fijo de producción de ***$3.000.000*** por el hecho que se pueden asumir que son
+        """Cuando la producción se aproxima a cero, se mantiene un costo fijo de producción de **$3.000.000** por el hecho que se pueden asumir que son
         gastos fijos empresariales que se tiene se podria intuir como ejemplo (arriendo, salarios y demás gastos empresariales).
         """)
 
     web.markdown("**B. Mayor utilidad, menor costo por unidad y coincidencia.**")
 
     web.write(
-            """Todo depende del valor que tenga K en este punto .
+            """Todo depende del valor que tenga K en este punto, para saber la mayor utilidad.
+                En este caso para dar respuesta asumiremos que k es cero **dando como resultado 700 unidades**
             """)
 
+    web.write(
+                """El costo promedio es mínimo aproximadamente en **387 unidades**. El costo promedio mínimo es cercano a **27,49 miles
+                    de pesos por unidad ($27.490 aproximadamente)**.
+ 
+                """)
+
+    web.write(
+                    """
+                Maximizar la utilidad busca la mayor diferencia entre ingresos y costos totales; minimizar
+el costo promedio busca el menor costo por unidad. Son objetivos diferentes, por eso sus cantidades óptimas son
+distintas: **700** y aproximadamente **387 unidades**.
+
+                    """)
+
     
-    
-    web.markdown("### Utilidad Máxima")
+    web.markdown("**Utilidad Máxima**")
     web.latex(r"U(q)=(40+K)q-(3000+12q+0.02q^2)")
     web.markdown("**Valores de K**")
 
@@ -530,13 +544,13 @@ with web.expander("Pregunta 4. Producción, costos y beneficios"):
     cantidad_maxima = q[indice_max]
     col1, col2 = web.columns(2)
     with col1:
-        web.metric("Valor de K", f"${valor_k}")
+        web.metric("Valor de K", f"{valor_k}")
 
     with col2:
         web.metric("Precio de venta por unidad (P)", f"${p}")
 
     with col1:
-            web.metric("Cantidad maxima de la utilidad", f"${cantidad_maxima}")
+            web.metric("Cantidad maxima de la utilidad", f"{cantidad_maxima}")
     
    
 
@@ -591,7 +605,7 @@ with web.expander("Pregunta 4. Producción, costos y beneficios"):
 
 
     # RESPUESTA B DE 4 
-    web.markdown("### Costo promedio mínimo")
+    web.markdown("**Costo promedio mínimo**")
     valor_q = web.slider(
             "Selecciona la cantidad de unidades (q)",
             min_value=1,
@@ -669,7 +683,6 @@ with web.expander("Pregunta 4. Producción, costos y beneficios"):
                 fig_menor_costo ,
                 use_container_width=True
             )
-
     
 
 # PREGUNTA 5: PRECIO OPTIMO Y UTILIDAD
@@ -680,10 +693,14 @@ with web.expander("Pregunta 5. Precio óptimo y utilidad"):
 
     web.write(
         "¿Qué precio de suscripción deja la mayor utilidad?",
-        "¿Qué ocurre con la utilidad en los extremos del dominio del precio?"
     )
 
-    web.markdown("### Función de utilidad")
+    web.write(
+            "¿Qué ocurre con la utilidad en los extremos del dominio del precio?"
+        )
+
+    web.markdown("### Respuesta:")
+    web.markdown("**A. Función de utilidad**")
 
     web.write(
         "La utilidad se calcula multiplicando la ganancia "
@@ -700,96 +717,20 @@ with web.expander("Pregunta 5. Precio óptimo y utilidad"):
         "la cantidad de suscriptores."
     )
 
-
-    web.markdown("### Primera derivada")
-
     web.write(
-        "Primero desarrollamos la función de utilidad:"
-    )
-
-    web.latex(
-        r"U(p)=(p-8)(1200-30p)"
-    )
-
-    web.latex(
-        r"U(p)=-30p^2+1440p-9600"
-    )
-
-    web.write(
-        "Derivamos la función respecto al precio:"
-    )
-
-    web.latex(
-        r"U'(p)=-60p+1440"
-    )
-
-    web.markdown("### Encontrar el precio óptimo")
-
-    web.write(
-        "Igualamos la primera derivada a cero para encontrar "
-        "el punto crítico:"
-    )
-
-    web.latex(
-        r"-60p+1440=0"
-    )
-
-    web.latex(
-        r"p=\frac{1440}{60}=24"
-    )
-
-    web.success(
         "El precio que maximiza la utilidad es de "
-        "24 mil pesos por suscriptor."
+        "**24 mil pesos por suscriptor**."
+    )
+    web.write(
+        "La utilidad máxima es de **7.680 miles de pesos**, "
+        "equivalentes a **$7.680.000**."
     )
 
 
-    web.markdown("### Segunda derivada")
+    web.markdown("**B. Análisis de los extremos del dominio**")
 
     web.write(
-        "Calculamos la segunda derivada para comprobar "
-        "si el punto crítico corresponde a un máximo."
-    )
-
-    web.latex(r"U''(p)=-60")
-
-    web.write(
-        "Como la segunda derivada es negativa, la función "
-        "presenta un máximo."
-    )
-
-    web.markdown("### Cálculo de la utilidad máxima")
-
-    web.write(
-        "Evaluamos el precio óptimo en la función de utilidad:"
-    )
-
-    web.latex(
-        r"U(24)=(24-8)(1200-30(24))"
-    )
-
-    web.latex(
-        r"U(24)=16(480)"
-    )
-
-    web.latex(
-        r"U(24)=7680"
-    )
-
-    web.success(
-        "La utilidad máxima es de 7.680 miles de pesos, "
-        "equivalentes a $7.680.000."
-    )
-
-    web.write(
-        "A este precio se obtiene una cantidad de "
-        "480 suscriptores."
-    )
-
-    web.markdown("### Análisis de los extremos del dominio")
-
-    web.write(
-        "El dominio del precio es de 0 a 40 mil pesos, "
+        "El rango del precio es de 0 a 40 mil pesos, "
         "porque el precio no puede ser negativo y la "
         "demanda no puede ser menor que cero."
     )
@@ -798,41 +739,27 @@ with web.expander("Pregunta 5. Precio óptimo y utilidad"):
 
     web.latex(r"U(0)=(0-8)(1200-30(0))")
 
-    web.latex(r"U(0)=(-8)(1200)=-9600")
 
     web.write(
-        "La utilidad es negativa en 9.600 miles de pesos, "
-        "porque no se cobra la suscripción, pero se incurre "
-        "en el costo de atender a los suscriptores."
+        "Cuando el precio es $0, la empresa obtiene una pérdida de **$9.600.000**"
     )
 
     web.markdown("**2. Cuando el precio es 40 mil pesos:**")
 
     web.latex(r"U(40)=(40-8)(1200-30(40))")
 
-    web.latex(r"U(40)=(32)(0)=0")
-
     web.write(
-        "La utilidad es cero porque a ese precio la demanda "
-        "desaparece y no hay suscriptores."
-    )
-
-    web.markdown("### Interpretación comercial")
-
-    web.success(
-        "La organización debe establecer un precio de "
-        "$24.000 por suscripción para alcanzar una utilidad "
-        "máxima de $7.680.000, con 480 suscriptores."
-    )
+            "Cuando el precio es **$40.000, la utilidad es cero debido a que no hay suscriptores**."
+        )
 
     #SLIDER PREGUNTA 5 
-    web.markdown("### Explorador del precio")
+    web.markdown("**Explorador del precio**")
 
     precio_seleccionado = web.slider(
         "Selecciona el precio de suscripción:",
         min_value=0,
         max_value=40,
-        value=24,
+        value=20,
         step=1,
         key="precio_pregunta5"
     )
@@ -932,75 +859,61 @@ with web.expander("Pregunta 5. Precio óptimo y utilidad"):
 # DECISION PROFESIONAL DE LA ORGANIZACION
 
 
-# web.header("Decisión profesional de la organización")
+web.header("Decisión profesional de la organización")
 
-# web.write(
-#     "A partir de los resultados matemáticos obtenidos, "
-#     "la organización debe establecer estrategias que "
-#     "permitan aprovechar los ingresos de la campaña, "
-#     "optimizar el programa de fidelización y controlar "
-#     "los costos de producción."
-# )
+web.write(
+    "A partir de los resultados obtenidos en el análisis, se recomienda implementar las siguientes decisiones para la organización:"
+)
 
-# web.markdown("### 1. Estrategia para la campaña publicitaria")
+web.markdown("### 1. Estrategia para la campaña publicitaria")
 
-# web.write(
-#     "Se recomienda aprovechar el día 20 como el momento "
-#     "de mayor generación de ingresos diarios, ya que "
-#     "se alcanza un valor de 1.300 miles de pesos."
-# )
+web.write(
+    """
+    Se recomienda concentrar la campaña durante los primeros **20 días**, 
+    ya que en ese momento se alcanza el ingreso diario máximo de **$1.300.000 pesos**. 
+    Después de ese punto, los ingresos comienzan a disminuir, 
+    por lo que prolongar la campaña bajo las mismas condiciones podría reducir su rendimiento.
+""")
 
-# web.write(
-#     "Aunque después del día 20 los ingresos diarios "
-#     "disminuyen, permanecen positivos durante el periodo "
-#     "analizado. Por ello, se propone cumplir los 60 días "
-#     "contratados y realizar seguimiento al rendimiento "
-#     "de la campaña."
-# )
+web.write(
+    """ Aunque después del **día 20** los ingresos diarios 
+    disminuyen, permanecen positivos durante el periodo 
+    analizado. Por ello, se propone cumplir los 60 días 
+    contratados y realizar seguimiento al rendimiento 
+    de la campaña."""
+)
 
-# web.markdown("### 2. Modelo de ingresos")
+web.markdown("### 2. Precio de venta ")
 
-# web.write(
-#     "Se propone utilizar el modelo corregido como "
-#     "alternativa de mejora, porque permite garantizar "
-#     "la continuidad de los ingresos en el día 25. "
-#     "Esta modificación debe ser validada por la "
-#     "organización antes de su implementación."
-# )
+web.write(
+    """ 
+        Para el programa de fidelización, se recomienda establecer un precio de **$24.000 Pesos**, 
+        debido a que este valor maximiza la utilidad del modelo analizado y permite alcanzar una cantidad estimada de 480 suscriptores.
+    """
+)
 
-# web.markdown("### 3. Estrategia de fidelización")
+web.markdown("### 3. Nivel de producción")
 
-# web.write(
-#     "Se recomienda establecer un precio de suscripción "
-#     "de $24.000 por persona, debido a que este valor "
-#     "maximiza la utilidad del programa."
-# )
+web.write(
+    """ 
+        El costo promedio por unidad alcanza su mínimo cuando la producción se aproxima a **387 unidades**. 
+        Este resultado permite identificar un nivel de producción eficiente desde la perspectiva de los costos.
+    """
+)
 
-# web.write(
-#     "Con este precio se proyectan 480 suscriptores "
-#     "y una utilidad máxima de $7.680.000."
-# )
+web.write(
+    """ 
+        Sin embargo, para maximizar la utilidad de la venta a los aliados, 
+        la cantidad de producción debe ajustarse según el valor de K y la capacidad máxima de 3.000 unidades.
+    """
+)
 
-# web.markdown("### 4. Producción y control de costos")
+web.markdown("### Conclusión")
 
-# web.write(
-#     "La organización debe respetar la capacidad máxima "
-#     "de impresión de 3.000 unidades y analizar los costos "
-#     "antes de establecer el volumen definitivo de producción."
-# )
-
-# web.warning(
-#     "La cantidad óptima de producción queda pendiente "
-#     "hasta conocer el valor de k y completar el análisis "
-#     "de costos y beneficios."
-# )
-
-# web.markdown("### Conclusión general")
-
-# web.success(
-#     "La organización debe aprovechar el máximo rendimiento "
-#     "de la campaña, establecer un precio de suscripción "
-#     "competitivo de $24.000 y controlar sus costos de "
-#     "producción. Las decisiones definitivas deberán "
-#     "respaldarse con los resultados del análisis económico."
-# )
+web.write(
+    """ 
+        La organización debería combinar una campaña publicitaria de **20 días**, una estrategia de fidelización con un precio de **$24.000** Pesos y 
+        una planificación de la producción basada en el comportamiento de los costos y la utilidad. 
+        Estas decisiones permiten aprovechar los resultados del análisis matemático para mejorar la planificación comercial y financiera.
+    """
+)
