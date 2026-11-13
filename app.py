@@ -248,7 +248,7 @@ with web.expander("Pregunta 2. Máximos, tasas de variación y continuidad"): # 
     else:
         funcion2 = 1250 - 15*(x2 - 25) 
 
-        
+
     # CONSTRUCCION DE LA 1 GRAFICA 
     fig = plot.graph_objects.Figure() # CREA EL ESPACIO DEL PLANO CARTESIANO 
     fig.add_trace(plot.graph_objects.Scatter(
@@ -453,9 +453,8 @@ with web.expander("Pregunta 3. Ingresos acumulados y punto de inflexión"):
         r"I_A(20)=-\frac{2}{3}(20)^3+40(20)^2+500(20)"
     )
 
-    web.latex(r"I_A(20)=\frac{46000}{3}")
-
-    web.latex(r"I_A(20)\approx15333.33")
+    web.latex(r"I_A(20)=\frac{62000}{3}")
+    web.latex(r"I_A(20)\approx20666.67")
 
 
     web.markdown("### Interpretación comercial")
@@ -481,6 +480,95 @@ with web.expander("Pregunta 3. Ingresos acumulados y punto de inflexión"):
         "Conclusión: el día 20 representa el punto de inflexión "
         "de los ingresos acumulados y el momento de mayor "
         "generación de ingresos diarios."
+    )
+
+    # SLIDER DE LA PREGUNTA 3 
+    web.markdown("### Explorador de ingresos acumulados")
+
+    dia_pregunta3 = web.slider(
+        "Selecciona el día de la campaña:",
+        min_value=0,
+        max_value=25,
+        value=10,
+        step=1,
+        key="dia_pregunta3"
+    )
+
+    ingreso_acumulado = (
+        -(2/3)*dia_pregunta3**3
+        + 40*dia_pregunta3**2
+        + 500*dia_pregunta3
+    )
+
+    # MUESTRA LOS INGRESOS ACOMULADOS 
+    web.metric(
+        "Ingresos acumulados",
+        f"${ingreso_acumulado * 1000:,.0f}"
+    )
+
+    x_acumulado = num.linspace(0, 25, 100)
+
+    y_acumulado = (
+        -(2/3)*x_acumulado**3
+        + 40*x_acumulado**2
+        + 500*x_acumulado
+    )
+
+    fig_acumulados = plot.graph_objects.Figure()
+
+    # Curva de ingresos acumulados
+    fig_acumulados.add_trace(
+        plot.graph_objects.Scatter(
+            x=x_acumulado,
+            y=y_acumulado,
+            mode="lines",
+            name="Ingresos acumulados",
+            line=dict(color="#00bfa6", width=3)
+        )
+    )
+
+    # Punto del día seleccionado
+    fig_acumulados.add_trace(
+        plot.graph_objects.Scatter(
+            x=[dia_pregunta3],
+            y=[ingreso_acumulado],
+            mode="markers",
+            name="Día seleccionado",
+            marker=dict(color="#FF5722", size=12)
+        )
+    )
+
+    # Punto de inflexión
+    fig_acumulados.add_trace(
+        plot.graph_objects.Scatter(
+            x=[20],
+            y=[62000/3],
+            mode="markers",
+            name="Punto de inflexión",
+            marker=dict(color="#11FF00", size=12)
+        )
+    )
+
+    fig_acumulados.update_layout(
+        title="Ingresos acumulados durante la primera fase",
+        height=500,
+        xaxis=dict(
+            title="Días de campaña",
+            dtick=2,
+            range=[0, 25],
+            minallowed= 0, #minallowed: valor minimo de la visualizacion,
+            maxallowed= 25 #  maxllowed: valor maximo de la visualizacion
+        ),
+        yaxis=dict(
+            title="Ingresos acumulados (miles de pesos)",
+            
+
+        )
+    )
+
+    web.plotly_chart(
+        fig_acumulados,
+        use_container_width=True
     )
 
 # PREGUNTA 4: PRODUCCION Y COSTOS
@@ -705,11 +793,112 @@ with web.expander("Pregunta 5. Precio óptimo y utilidad"):
         "máxima de $7.680.000, con 480 suscriptores."
     )
 
+    # SLIDER PREGUNTA 5 
+    web.markdown("### Explorador del precio")
+
+    precio_seleccionado = web.slider(
+        "Selecciona el precio de suscripción:",
+        min_value=0,
+        max_value=40,
+        value=24,
+        step=1,
+        key="precio_pregunta5"
+    )
 
 
-# ==========================================
+    cantidad_suscriptores = (
+        1200 - 30*precio_seleccionado
+    )
+
+    utilidad_seleccionada = (
+        (precio_seleccionado - 8)
+        * cantidad_suscriptores
+    )
+
+    col1, col2 = web.columns(2)
+
+    col1.metric(
+        "Utilidad proyectada",
+        f"${utilidad_seleccionada * 1000:,.0f}"
+    )
+
+    col2.metric(
+        "Suscriptores",
+        f"{cantidad_suscriptores:,}"
+    )
+
+
+    # Valores para construir la curva
+    precios = num.linspace(0, 40, 100)
+
+    utilidades = (
+        (precios - 8)
+        * (1200 - 30*precios)
+    )
+
+    # Crear la figura
+    fig_utilidad = plot.graph_objects.Figure()
+
+    # Curva de utilidad
+    fig_utilidad.add_trace(
+        plot.graph_objects.Scatter(
+            x=precios,
+            y=utilidades,
+            mode="lines",
+            name="Función de utilidad",
+            line=dict(color="#00bfa6", width=3)
+        )
+    )
+
+    # Punto del precio seleccionado
+    fig_utilidad.add_trace(
+        plot.graph_objects.Scatter(
+            x=[precio_seleccionado],
+            y=[utilidad_seleccionada],
+            mode="markers",
+            name="Precio seleccionado",
+            marker=dict(color="#FF5722", size=12)
+        )
+    )
+
+    # Punto de utilidad máxima
+    fig_utilidad.add_trace(
+        plot.graph_objects.Scatter(
+            x=[24],
+            y=[7680],
+            mode="markers",
+            name="Máxima utilidad",
+            marker=dict(color="#11FF00", size=12)
+        )
+    )
+
+    # Configuración de la gráfica
+    fig_utilidad.update_layout(
+        title="Utilidad según el precio de suscripción",
+        height=500,
+        xaxis=dict(
+            title="Precio (miles de pesos)",
+            dtick=2,
+            range=[0, 40],
+            minallowed=0, #minallowed: valor minimo de la visualizacion,
+            maxallowed=40 #  maxllowed: valor maximo de la visualizacion
+
+        ),
+        yaxis=dict(
+            title="Utilidad (miles de pesos)"
+        )
+    )
+
+    # Mostrar gráfica
+    web.plotly_chart(
+        fig_utilidad,
+        use_container_width=True
+    )
+
+
+
 # DECISION PROFESIONAL DE LA ORGANIZACION
-# ==========================================
+
 
 web.header("Decisión profesional de la organización")
 
